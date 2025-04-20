@@ -8,7 +8,10 @@ variable "containers" {
   description = "List of containers to create with SSH access"
   type = list(object({
     name                 = string
-    host_ssh_port        = number
     environment_variables = optional(list(string), [])
+    ports                = list(object({
+      internal = number
+      external = number
+    }))
   }))
 }

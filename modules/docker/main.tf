@@ -29,9 +29,12 @@ resource "docker_container" "ssh_containers" {
   name  = each.value.name
   image = docker_image.ssh_image.name
 
-  ports {
-    internal = 22
-    external = each.value.host_ssh_port
+  dynamic "ports" {
+    for_each = each.value.ports
+    content {
+      internal = ports.value.internal
+      external = ports.value.external
+    }
   }
 
   env = each.value.environment_variables

@@ -5,12 +5,25 @@ module "ssh_containers" {
   containers = [
     {
       name           = "ssh_container_1"
-      host_ssh_port  = 2222
+      ports          = [
+        { internal = 22, external = 2222 },
+        { internal = 80, external = 8080 }
+      ]
       environment_variables = ["ENV=dev"]
     },
     {
       name           = "ssh_container_2"
-      host_ssh_port  = 2223
+      ports          = [
+        { internal = 22, external = 3333 },
+        { internal = 80, external = 9090 }
+      ]
+    },
+    {
+      name           = "ssh_container_3"
+      ports          = [
+        { internal = 22, external = 4444 },
+        { internal = 80, external = 9999 }
+      ]
     }
   ]
 }
